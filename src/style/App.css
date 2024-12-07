@@ -72,3 +72,27 @@
   --bs-navbar-bg: #212529; /* Couleur de fond du navbar */
   --bs-navbar-color: #ffffff; /* Couleur du texte du navbar */
 }
+
+.card {
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1db954;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-img-top {
+  border-radius: 10px 10px 0 0;
+}
