@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const UserProfile = ({ userData, topArtists, topTracks, onBack }) => {
-  const [category, setCategory] = useState('artists'); // Pour basculer entre artistes et chansons
+  const [category, setCategory] = useState('artists'); // Basculer entre artistes et chansons
   const [itemsToShow, setItemsToShow] = useState(5); // Nombre d'éléments à afficher
+  const [isDarkMode, setIsDarkMode] = useState(true); // Mode sombre
 
-  // Gestion des images pour qu'elles aient toutes la même taille
+  // Fonction pour basculer entre Dark et Light Mode
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.style.backgroundColor = '#121212';
+      document.body.style.color = 'white';
+    } else {
+      document.body.style.backgroundColor = '#fff';
+      document.body.style.color = 'black';
+    }
+  }, [isDarkMode]);
+
   const cardStyle = {
     height: '100%',
     display: 'flex',
@@ -39,6 +50,14 @@ const UserProfile = ({ userData, topArtists, topTracks, onBack }) => {
             </option>
           ))}
         </select>
+
+        {/* Bouton de changement de thème */}
+        <button
+          className="btn btn-outline-light"
+          onClick={() => setIsDarkMode(!isDarkMode)}
+        >
+          {isDarkMode ? 'Passer au mode clair' : 'Passer au mode sombre'}
+        </button>
       </div>
 
       {/* Menu de navigation */}

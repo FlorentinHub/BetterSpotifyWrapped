@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 
 const Home = () => {
-  // États pour le formulaire
   const [clientId, setClientId] = useState('');
   const [redirectUri, setRedirectUri] = useState('http://localhost:5173/callback');
   const [generatedUrl, setGeneratedUrl] = useState('');
 
-  // Fonction pour générer l'URL de connexion Spotify
   const generateSpotifyLoginUrl = (clientId, redirectUri) => {
     return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(
       redirectUri
-    )}&scope=user-library-read%20playlist-read-private%20user-read-email%20user-top-read`;
+    )}&scope=user-library-read%20playlist-read-private%20user-read-email%20user-top-read%20user-read-recently-played`;
   };
 
-  // Fonction pour soumettre le formulaire
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (!clientId) {

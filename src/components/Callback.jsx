@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 
 const Callback = () => {
@@ -7,7 +6,8 @@ const Callback = () => {
   const [userData, setUserData] = useState(null);
   const [topArtists, setTopArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
-  const navigate = useNavigate();
+  const [playlists, setPlaylists] = useState([]);
+  const [recentlyPlayed, setRecentlyPlayed] = useState([]);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -19,6 +19,8 @@ const Callback = () => {
       getUserData(token);
       getTopArtists(token);
       getTopTracks(token);
+      getPlaylists(token);
+      getRecentlyPlayed(token);
     }
   }, []);
 
@@ -61,8 +63,30 @@ const Callback = () => {
     }
   };
 
-  const redirectToHomePage = () => {
-    navigate('/');
+  const getPlaylists = async (token) => {
+    const response = await fetch('https://api.spotify.com/v1/me/playlists', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setPlaylists(data.items);
+    }
+  };
+
+  const getRecentlyPlayed = async (token) => {
+    const response = await fetch('https://api.spotify.com/v1/me/player/recently-played', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setRecentlyPlayed(data.items);
+    }
   };
 
   if (!accessToken || !userData) {
@@ -74,7 +98,8 @@ const Callback = () => {
       userData={userData}
       topArtists={topArtists}
       topTracks={topTracks}
-      onBack={redirectToHomePage}
+      playlists={playlists}
+      recentlyPlayed={recentlyPlayed}
     />
   );
 };
