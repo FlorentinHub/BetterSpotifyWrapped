@@ -8,6 +8,7 @@ const Callback = () => {
   const [topTracks, setTopTracks] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   const [recentlyPlayed, setRecentlyPlayed] = useState([]);
+  const [recentlyAddedAlbums, setRecentlyAddedAlbums] = useState([]);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -21,6 +22,7 @@ const Callback = () => {
       getTopTracks(token);
       getPlaylists(token);
       getRecentlyPlayed(token);
+      getRecentlyAddedAlbums(token);
     }
   }, []);
 
@@ -89,6 +91,19 @@ const Callback = () => {
     }
   };
 
+  const getRecentlyAddedAlbums = async (token) => {
+    const response = await fetch('https://api.spotify.com/v1/me/albums', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      setRecentlyAddedAlbums(data.items);
+    }
+  };
+
   if (!accessToken || !userData) {
     return <div>Connexion en cours avec Spotify...</div>;
   }
@@ -100,6 +115,7 @@ const Callback = () => {
       topTracks={topTracks}
       playlists={playlists}
       recentlyPlayed={recentlyPlayed}
+      recentlyAddedAlbums={recentlyAddedAlbums}
     />
   );
 };
