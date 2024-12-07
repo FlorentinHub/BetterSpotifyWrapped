@@ -40,3 +40,59 @@
 .read-the-docs {
   color: #888;
 }
+
+.container-custom{
+  height: '1000vh';
+  width: '1000vw';
+}
+
+.btn-primary{
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #1ED760;
+  --bs-btn-border-color: #1ED760;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #1ED760;
+  --bs-btn-hover-border-color: #1ED760;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #1ED760;
+  --bs-btn-active-border-color: #1ED760;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #1ED760;
+  --bs-btn-disabled-border-color: #1ED760;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #000000; /* Fond noir */
+  --bs-body-color: #ffffff; /* Texte blanc */
+  --bs-link-color: #1ED760; /* Couleur des liens */
+  --bs-card-bg: #212529; /* Couleur des cartes */
+  --bs-card-color: #ffffff; /* Couleur des textes des cartes */
+  --bs-navbar-bg: #212529; /* Couleur de fond du navbar */
+  --bs-navbar-color: #ffffff; /* Couleur du texte du navbar */
+}
+
+.card {
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #1db954;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-img-top {
+  border-radius: 10px 10px 0 0;
+}
