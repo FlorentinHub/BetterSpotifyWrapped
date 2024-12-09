@@ -24,7 +24,26 @@ const Home = () => {
 
   return (
     <div className="container">
-      <h1 className="mt-5">Connexion avec Spotify</h1>
+      <h1 className="mt-5">
+        Connexion avec
+        <img
+          src="/src/assets/Spotify_Primary_Logo_RGB_Green.png"
+          alt="Spotify Logo"
+          style={{
+            height: '1em',
+            width: 'auto',
+            verticalAlign: 'middle',
+            marginLeft: '8px',
+          }}
+        />
+        <span
+          style={{
+            color: '#1DB954', 
+          }}
+        >
+          Spotify
+        </span>
+      </h1>
       <form onSubmit={handleFormSubmit}>
         <div className="mb-3">
           <label htmlFor="clientId" className="form-label">
