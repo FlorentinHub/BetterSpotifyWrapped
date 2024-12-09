@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const Home = () => {
   const [clientId, setClientId] = useState('');
-  const [redirectUri, setRedirectUri] = useState('http://localhost:5173/callback');
+  const [redirectUri, setRedirectUri] = useState('https://regal-paletas-d2b26d.netlify.app/callback');
   const [generatedUrl, setGeneratedUrl] = useState('');
 
   const generateSpotifyLoginUrl = (clientId, redirectUri) => {
