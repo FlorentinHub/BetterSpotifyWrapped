@@ -28,7 +28,6 @@ const Home = () => {
         Connexion avec
         <img
           src="/src/assets/Spotify_Primary_Logo_RGB_Green.png"
-          alt="Spotify Logo"
           style={{
             height: '1em',
             width: 'auto',
