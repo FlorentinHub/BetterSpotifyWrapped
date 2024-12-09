@@ -11,9 +11,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +24,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -41,12 +44,12 @@
   color: #888;
 }
 
-.container-custom{
+.container-custom {
   height: '1000vh';
   width: '1000vw';
 }
 
-.btn-primary{
+.btn-primary {
   --bs-btn-color: #fff;
   --bs-btn-bg: #1ED760;
   --bs-btn-border-color: #1ED760;
@@ -64,13 +67,20 @@
 }
 
 [data-bs-theme="dark"] {
-  --bs-body-bg: #000000; /* Fond noir */
-  --bs-body-color: #ffffff; /* Texte blanc */
-  --bs-link-color: #1ED760; /* Couleur des liens */
-  --bs-card-bg: #212529; /* Couleur des cartes */
-  --bs-card-color: #ffffff; /* Couleur des textes des cartes */
-  --bs-navbar-bg: #212529; /* Couleur de fond du navbar */
-  --bs-navbar-color: #ffffff; /* Couleur du texte du navbar */
+  --bs-body-bg: #000000;
+  /* Fond noir */
+  --bs-body-color: #ffffff;
+  /* Texte blanc */
+  --bs-link-color: #1ED760;
+  /* Couleur des liens */
+  --bs-card-bg: #212529;
+  /* Couleur des cartes */
+  --bs-card-color: #ffffff;
+  /* Couleur des textes des cartes */
+  --bs-navbar-bg: #212529;
+  /* Couleur de fond du navbar */
+  --bs-navbar-color: #ffffff;
+  /* Couleur du texte du navbar */
 }
 
 .card {
@@ -95,4 +105,49 @@
 
 .card-img-top {
   border-radius: 10px 10px 0 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .btn-primary {
+    font-size: 1rem;
+  }
+
+  .alert {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  img {
+    height: 1em !important;
+  }
+
+  .alert {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+}
+
+.mobile {
+  max-width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
 }
