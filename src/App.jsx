@@ -6,7 +6,7 @@ import './style/App.css'
 
 const App = () => {
   return (
-    <div className="container-custom">
+    <div className="container-custom mobile">
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
