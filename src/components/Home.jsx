@@ -28,7 +28,7 @@ const Home = () => {
       <form onSubmit={handleFormSubmit}>
         <div className="mb-3">
           <label htmlFor="clientId" className="form-label">
-            Client ID
+            Client ID - <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Dashboard</a>.
           </label>
           <input
             type="text"
@@ -39,7 +39,7 @@ const Home = () => {
             required
           />
         </div>
-        
+
         <p>
           Si vous ne disposez pas encore d'un Client ID, vous pouvez l'obtenir en suivant les instructions
           dans la <a href="https://developer.spotify.com/documentation/web-api/concepts/apps" target="_blank" rel="noopener noreferrer">documentation officielle de Spotify</a>.
