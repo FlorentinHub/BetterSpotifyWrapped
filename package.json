@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://FlorentinHub.github.io/BetterSpotifyWrapped",
+  "homepage": "https://github.com/FlorentinHub/BetterSpotifyWrapped.git",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
