@@ -1,144 +1,146 @@
 import React, { useState, useEffect } from 'react';
 
-const UserProfile = ({ userData, topArtists, topTracks, onBack }) => {
-  const [category, setCategory] = useState('artists'); // Basculer entre artistes et chansons
-  const [itemsToShow, setItemsToShow] = useState(5); // Nombre d'éléments à afficher
-  const [isDarkMode, setIsDarkMode] = useState(true); // Mode sombre
+const UserProfile = ({ userData, topArtists, topTracks, playlists, recentlyAddedAlbums, onBack }) => {
+    const [category, setCategory] = useState('artists'); // Basculer entre artistes et chansons
+    const [itemsToShow, setItemsToShow] = useState({
+        artists: 10,
+        tracks: 10,
+        albums: 10,
+        playlists: 10,
+    });
+    const [isDarkMode, setIsDarkMode] = useState(true); // Mode sombre
+    const [searchTerm, setSearchTerm] = useState(''); // Terme de recherche
 
-  // Fonction pour basculer entre Dark et Light Mode
-  useEffect(() => {
-    if (isDarkMode) {
-      document.body.style.backgroundColor = '#121212';
-      document.body.style.color = 'white';
-    } else {
-      document.body.style.backgroundColor = '#fff';
-      document.body.style.color = 'black';
-    }
-  }, [isDarkMode]);
+    // Fonction pour basculer entre Dark et Light Mode
+    useEffect(() => {
+        document.body.style.backgroundColor = isDarkMode ? '#121212' : '#fff';
+        document.body.style.color = isDarkMode ? 'white' : 'black';
+    }, [isDarkMode]);
 
-  const cardStyle = {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  };
+    const handleItemsToShowChange = (category, value) => {
+        setItemsToShow((prev) => ({
+            ...prev,
+            [category]: Number(value),
+        }));
+    };
 
-  const imageStyle = {
-    height: '200px',
-    objectFit: 'cover',
-  };
+    const filteredResults = (items, categoryKey) => {
+        if (!searchTerm) return items;
+        return items.filter((item) => {
+            const name = categoryKey === 'albums' || categoryKey === 'playlists'
+                ? item.name || item.album?.name || ''
+                : item.name;
+            return name.toLowerCase().includes(searchTerm.toLowerCase());
+        });
+    };
 
-  return (
-    <div className="container mt-5">
-      <h1 className="text-center">Bienvenue {userData?.display_name}</h1>
+    const cardStyle = { height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' };
+    const imageStyle = { height: '200px', objectFit: 'cover' };
+    const handleBackToHome = () => {
+        window.location.href = '/';  // Redirige vers la page principale
+      };
+    return (
+        <div className="container mt-5">
+            <h1 className="text-center">Bienvenue, {userData?.display_name}</h1>
 
-      <div className="d-flex justify-content-between my-3">
-        {/* Bouton retour */}
-        <button className="btn btn-secondary" onClick={onBack}>
-          Retour à l'accueil
-        </button>
+            <div className="d-flex justify-content-between my-3">
+                <button className="btn btn-secondary" onClick={handleBackToHome}>Retour à l'accueil</button>
 
-        {/* Menu déroulant pour choisir le nombre d'éléments */}
-        <select
-          className="form-select w-auto"
-          value={itemsToShow}
-          onChange={(e) => setItemsToShow(Number(e.target.value))}
-        >
-          {[5, 10, 15].map((num) => (
-            <option key={num} value={num}>
-              Afficher {num} éléments
-            </option>
-          ))}
-        </select>
+                <button
+                    className="btn btn-outline-light"
+                    onClick={() => setIsDarkMode(!isDarkMode)}
+                >
+                    {isDarkMode ? 'Passer au mode clair' : 'Passer au mode sombre'}
+                </button>
+            </div>
 
-        {/* Bouton de changement de thème */}
-        <button
-          className="btn btn-outline-light"
-          onClick={() => setIsDarkMode(!isDarkMode)}
-        >
-          {isDarkMode ? 'Passer au mode clair' : 'Passer au mode sombre'}
-        </button>
-      </div>
+            {/* Barre de recherche */}
+            <div className="mb-3">
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Rechercher..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
 
-      {/* Menu de navigation */}
-      <ul className="nav nav-tabs">
-        <li className="nav-item">
-          <button
-            className={`nav-link ${category === 'artists' ? 'active' : ''}`}
-            onClick={() => setCategory('artists')}
-          >
-            Top Artistes
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${category === 'tracks' ? 'active' : ''}`}
-            onClick={() => setCategory('tracks')}
-          >
-            Top Chansons
-          </button>
-        </li>
-      </ul>
-
-      <div className="mt-4">
-        {category === 'artists' ? (
-          <>
-            <h3>Top Artistes</h3>
-            {topArtists.length > 0 ? (
-              <div className="row g-3">
-                {topArtists.slice(0, itemsToShow).map((artist) => (
-                  <div className="col-12 col-md-4 col-lg-3" key={artist.id}>
-                    <div className="card" style={cardStyle}>
-                      <img
-                        src={artist.images[0]?.url || 'https://via.placeholder.com/200'}
-                        alt={artist.name}
-                        className="card-img-top"
-                        style={imageStyle}
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title text-truncate">{artist.name}</h5>
-                        <p className="card-text">Followers : {artist.followers.total.toLocaleString()}</p>
-                      </div>
-                    </div>
-                  </div>
+            {/* Menu de navigation */}
+            <ul className="nav nav-tabs">
+                {['artists', 'tracks', 'albums', 'playlists'].map((cat) => (
+                    <li className="nav-item" key={cat}>
+                        <button
+                            className={`nav-link ${category === cat ? 'active' : ''}`}
+                            onClick={() => setCategory(cat)}
+                        >
+                            {cat === 'artists' ? 'Top Artistes' :
+                                cat === 'tracks' ? 'Top Chansons' :
+                                    cat === 'albums' ? 'Albums Récemment Ajoutés' : 'Playlists'}
+                        </button>
+                    </li>
                 ))}
-              </div>
-            ) : (
-              <p>Chargement des top artistes...</p>
-            )}
-          </>
-        ) : (
-          <>
-            <h3>Top Chansons</h3>
-            {topTracks.length > 0 ? (
-              <div className="row g-3">
-                {topTracks.slice(0, itemsToShow).map((track) => (
-                  <div className="col-12 col-md-4 col-lg-3" key={track.id}>
-                    <div className="card" style={cardStyle}>
-                      <img
-                        src={track.album.images[0]?.url || 'https://via.placeholder.com/200'}
-                        alt={track.name}
-                        className="card-img-top"
-                        style={imageStyle}
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title text-truncate">{track.name}</h5>
-                        <p className="card-text">
-                          Artiste : {track.artists.map((artist) => artist.name).join(', ')}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+            </ul>
+
+            {/* Section d'affichage des résultats */}
+            <div className="mt-4">
+                {['artists', 'tracks', 'albums', 'playlists'].map((cat) => (
+                    category === cat && (
+
+                        <div key={cat}>
+                        <div className="d-flex justify-content-between align-items-center mb-3">
+                            <h3>{cat === 'artists' ? 'Top Artistes' :
+                                cat === 'tracks' ? 'Top Chansons' :
+                                    cat === 'albums' ? 'Albums Récemment Ajoutés' : 'Vos Playlists'}</h3>
+
+                            {/* Contrôle pour le nombre d'éléments */}
+                            <div className="mb-3">
+                                <label>
+                                    <select
+                                        className="form-select w-auto form-select"
+                                        value={itemsToShow[cat]}
+                                        onChange={(e) => handleItemsToShowChange(cat, e.target.value)}
+                                    >
+                                        {[10, 15, 20, 25].map((num) => (
+                                            <option key={num} value={num}>{num}</option>
+                                        ))}
+                                    </select>
+                                </label>
+                            </div>
+                            </div>
+
+                            <div className="row g-3">
+                                {filteredResults(
+                                    cat === 'artists' ? topArtists :
+                                        cat === 'tracks' ? topTracks :
+                                            cat === 'albums' ? recentlyAddedAlbums :
+                                                playlists,
+                                    cat
+                                )
+                                .filter((item) => item !== null)
+                                .slice(0, itemsToShow[cat]).map((item, index) => (
+                                    <div className="col-12 col-md-4 col-lg-3" key={index}>
+                                        <div className="card" style={cardStyle}>
+                                            <img
+                                                src={item.images?.[0]?.url || item.album?.images?.[0]?.url || 'https://via.placeholder.com/200'}
+                                                alt={item.name}
+                                                className="card-img-top"
+                                                style={imageStyle}
+                                            />
+                                            <div className="card-body">
+                                                <h5 className="card-title text-truncate">{item.name || item.album?.name}</h5>
+                                                {cat === 'artists' && <p className="card-text">{item.followers?.total.toLocaleString()}</p>}
+                                                {cat === 'tracks' && <p className="card-text">{item.artists.map((a) => a.name).join(', ')}</p>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )
                 ))}
-              </div>
-            ) : (
-              <p>Chargement des top chansons...</p>
-            )}
-          </>
-        )}
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 };
 
 export default UserProfile;

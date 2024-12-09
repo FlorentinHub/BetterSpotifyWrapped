@@ -10,6 +10,7 @@ const Home = () => {
       redirectUri
     )}&scope=user-library-read%20playlist-read-private%20user-read-email%20user-top-read%20user-read-recently-played`;
   };
+  
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
