@@ -7,17 +7,13 @@ const Home = () => {
   const [generatedUrl, setGeneratedUrl] = useState('');
 
   const generateSpotifyLoginUrl = (clientId, redirectUri) => {
-    return `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&redirect_uri=${encodeURIComponent(
+    return `https://accounts.spotify.com/authorize?client_id=165f9cb248dd4ab599ab4a90edff6767&response_type=token&redirect_uri=${encodeURIComponent(
       redirectUri
     )}&scope=user-library-read%20playlist-read-private%20user-read-email%20user-top-read%20user-read-recently-played`;
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (!clientId) {
-      alert('Veuillez renseigner votre Client ID');
-      return;
-    }
     const url = generateSpotifyLoginUrl(clientId, redirectUri);
     setGeneratedUrl(url);
     window.location.href = url;
@@ -36,27 +32,19 @@ const Home = () => {
       </h1>
 
       <form onSubmit={handleFormSubmit} className="home-form">
-        <label htmlFor="clientId" className="form-label">
+        {/* <label htmlFor="clientId" className="form-label">
           Client ID - <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Dashboard</a>
-        </label>
-        <input
-          type="text"
-          id="clientId"
-          className="form-input"
-          value={clientId}
-          onChange={(e) => setClientId(e.target.value)}
-          required
-        />
-        <p className="info-text">
+        </label> */}
+        {/* <p className="info-text">
           Si vous ne disposez pas encore d'un Client ID, vous pouvez l'obtenir dans la 
           <a href="https://developer.spotify.com/documentation/web-api/concepts/apps" target="_blank" rel="noopener noreferrer"> documentation officielle de Spotify</a>.
-        </p>
+        </p> */}
         <button type="submit" className="btn">
           Se connecter avec Spotify
         </button>
       </form>
 
-      <div className="callback-section">
+      {/* <div className="callback-section">
         <h5>Callback URL à utiliser :</h5>
         <div className="callback-alert">
           <span>{redirectUri}</span>
@@ -70,14 +58,14 @@ const Home = () => {
         <p className="info-text">
           Ajoutez cette URL dans la section <strong>REDIRECT URLs</strong> du Dashboard de Spotify.
         </p>
-      </div>
+      </div> */}
 
       {generatedUrl && (
         <div className="url-section">
           <h5>URL générée :</h5>
           <div className="url-alert">{generatedUrl}</div>
           <a href={generatedUrl} target="_blank" rel="noopener noreferrer" className="btn">
-            Cliquez ici pour vous connecter à Spotify
+            Si vous voyez ceci, vous devez cliquez ici pour vous connecter via Spotify
           </a>
         </div>
       )}
