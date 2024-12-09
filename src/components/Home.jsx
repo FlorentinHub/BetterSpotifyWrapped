@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import '../style/Home.css';
 
 const Home = () => {
   const [clientId, setClientId] = useState('');
-  const [redirectUri, setRedirectUri] = useState('https://regal-paletas-d2b26d.netlify.app/callback');
+  const [redirectUri, setRedirectUri] = useState('http://localhost:5173/callback');
   const [generatedUrl, setGeneratedUrl] = useState('');
 
   const generateSpotifyLoginUrl = (clientId, redirectUri) => {
@@ -23,63 +24,59 @@ const Home = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="mt-5">
+    <div className="home-container">
+      <h1 className="home-title">
         Connexion avec
         <img
-          src="/src/assets/Spotify_Primary_Logo_RGB_Green.png"
-          style={{
-            height: '1em',
-            width: 'auto',
-            verticalAlign: 'middle',
-            marginLeft: '8px',
-          }}
+          src="https://r2.fivemanage.com/image/IXHdKNyVuzWv.png"
+          alt="Spotify Logo"
+          className="spotify-logo"
         />
-        <span
-          style={{
-            color: '#1DB954', 
-          }}
-        >
-          Spotify
-        </span>
+        <span className="spotify-text">Spotify</span>
       </h1>
-      <form onSubmit={handleFormSubmit}>
-        <div className="mb-3">
-          <label htmlFor="clientId" className="form-label">
-            Client ID - <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Dashboard</a>.
-          </label>
-          <input
-            type="text"
-            id="clientId"
-            className="form-control"
-            value={clientId}
-            onChange={(e) => setClientId(e.target.value)}
-            required
-          />
-        </div>
 
-        <p>
-          Si vous ne disposez pas encore d'un Client ID, vous pouvez l'obtenir en suivant les instructions
-          dans la <a href="https://developer.spotify.com/documentation/web-api/concepts/apps" target="_blank" rel="noopener noreferrer">documentation officielle de Spotify</a>.
+      <form onSubmit={handleFormSubmit} className="home-form">
+        <label htmlFor="clientId" className="form-label">
+          Client ID - <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Dashboard</a>
+        </label>
+        <input
+          type="text"
+          id="clientId"
+          className="form-input"
+          value={clientId}
+          onChange={(e) => setClientId(e.target.value)}
+          required
+        />
+        <p className="info-text">
+          Si vous ne disposez pas encore d'un Client ID, vous pouvez l'obtenir dans la 
+          <a href="https://developer.spotify.com/documentation/web-api/concepts/apps" target="_blank" rel="noopener noreferrer"> documentation officielle de Spotify</a>.
         </p>
-
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn">
           Se connecter avec Spotify
         </button>
       </form>
 
-      {generatedUrl && (
-        <div className="mt-3">
-          <h5>URL générée :</h5>
-          <div className="alert alert-success">
-            <strong>{generatedUrl}</strong>
-          </div>
-          <a
-            href={generatedUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-success mt-2"
+      <div className="callback-section">
+        <h5>Callback URL à utiliser :</h5>
+        <div className="callback-alert">
+          <span>{redirectUri}</span>
+          <button
+            className="copy-btn"
+            onClick={() => navigator.clipboard.writeText(redirectUri)}
           >
+            Copier
+          </button>
+        </div>
+        <p className="info-text">
+          Ajoutez cette URL dans la section <strong>REDIRECT URLs</strong> du Dashboard de Spotify.
+        </p>
+      </div>
+
+      {generatedUrl && (
+        <div className="url-section">
+          <h5>URL générée :</h5>
+          <div className="url-alert">{generatedUrl}</div>
+          <a href={generatedUrl} target="_blank" rel="noopener noreferrer" className="btn">
             Cliquez ici pour vous connecter à Spotify
           </a>
         </div>
