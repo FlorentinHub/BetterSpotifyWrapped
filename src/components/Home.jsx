@@ -10,7 +10,6 @@ const Home = () => {
       redirectUri
     )}&scope=user-library-read%20playlist-read-private%20user-read-email%20user-top-read%20user-read-recently-played`;
   };
-  
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -40,6 +39,12 @@ const Home = () => {
             required
           />
         </div>
+        
+        <p>
+          Si vous ne disposez pas encore d'un Client ID, vous pouvez l'obtenir en suivant les instructions
+          dans la <a href="https://developer.spotify.com/documentation/web-api/concepts/apps" target="_blank" rel="noopener noreferrer">documentation officielle de Spotify</a>.
+        </p>
+
         <button type="submit" className="btn btn-primary">
           Se connecter avec Spotify
         </button>
