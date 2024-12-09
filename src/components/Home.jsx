@@ -24,11 +24,30 @@ const Home = () => {
 
   return (
     <div className="container">
-      <h1 className="mt-5">Connexion avec Spotify</h1>
+      <h1 className="mt-5">
+        Connexion avec
+        <img
+          src="/src/assets/Spotify_Primary_Logo_RGB_Green.png"
+          alt="Spotify Logo"
+          style={{
+            height: '1em',
+            width: 'auto',
+            verticalAlign: 'middle',
+            marginLeft: '8px',
+          }}
+        />
+        <span
+          style={{
+            color: '#1DB954', 
+          }}
+        >
+          Spotify
+        </span>
+      </h1>
       <form onSubmit={handleFormSubmit}>
         <div className="mb-3">
           <label htmlFor="clientId" className="form-label">
-            Client ID
+            Client ID - <a href="https://developer.spotify.com/dashboard" target="_blank" rel="noopener noreferrer">Dashboard</a>.
           </label>
           <input
             type="text"
@@ -39,6 +58,12 @@ const Home = () => {
             required
           />
         </div>
+
+        <p>
+          Si vous ne disposez pas encore d'un Client ID, vous pouvez l'obtenir en suivant les instructions
+          dans la <a href="https://developer.spotify.com/documentation/web-api/concepts/apps" target="_blank" rel="noopener noreferrer">documentation officielle de Spotify</a>.
+        </p>
+
         <button type="submit" className="btn btn-primary">
           Se connecter avec Spotify
         </button>
